@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دهه جدید مبینا🎆</title>
+  <style>
+    body { background-color: lavender; margin: 0; font-family: sans-serif; direction: rtl; text-align: center; color: #333; }
+    .container { position: relative; max-width: 800px; margin: 0 auto; padding-top: 50px; }
+    .slide { display: none; }
+    .active { display: block; }
+    video, img { max-width: 100%; height: auto; margin-bottom: 10px; }
+
+    /* --- LOADER CSS --- */
+    .loader { --main-size: 3em; --text-color: #00135c; --shine-color: #ffffff40; --shadow-color: #aaaaaa; display: flex; justify-content: center; align-items: center; overflow: hidden; user-select: none; position: relative; font-size: var(--main-size); font-weight: 900; text-transform: uppercase; color: var(--text-color); width: 100%; height: 2em; filter: drop-shadow(0 0 0.05em var(--shine-color)); margin: 30px auto; }
+    .loader .text { display: flex; align-items: center; justify-content: center; text-align: center; white-space: nowrap; overflow: hidden; position: absolute; }
+    .loader .text span { animation: scrolling 2s cubic-bezier(0.1, 0.6, 0.9, 0.4) infinite; display: block;}
+    @keyframes scrolling { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    /* --- ROTATING CAROUSEL --- */
+    .wrapper { width: 100%; height: 350px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .inner { --w: 120px; --h: 180px; --translateZ: 220px; --rotateX: -15deg; --perspective: 1000px; position: absolute; width: var(--w); height: var(--h); transform-style: preserve-3d; transform: perspective(var(--perspective)); animation: rotating 20s linear infinite; }
+    @keyframes rotating { from { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(0); } to { transform: perspective(var(--perspective)) rotateX(var(--rotateX)) rotateY(1turn); } }
+    .card { position: absolute; border: 2px solid #fff; border-radius: 12px; overflow: hidden; inset: 0; transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--translateZ)); }
+    .img-box { width: 100%; height: 100%; object-fit: cover; }
+
+    /* --- 3D NAV BUTTONS --- */
+    .nav-buttons { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
+    .button-3d { all: unset; cursor: pointer; position: relative; border-radius: 100em; background-color: rgba(0, 0, 0, 0.75); }
+    .button-outer { position: relative; z-index: 1; border-radius: inherit; transition: box-shadow 300ms ease; box-shadow: 0 0.15em 0.3em rgba(5, 5, 5, 0.25); }
+    .button-inner { padding: 1em 1.5em; border-radius: inherit; background-image: linear-gradient(135deg, #e6e6e6, #b4b4b4); display: block; font-size: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div id="slide0" class="slide active">
+      <h2>امیدوارم همیشه همینجوری خنده روی لب هات باشه</h2>
+      <video id="vid" controls><source src="myvideo.mp4" type="video/mp4" /></video>
+      <div class="nav-buttons">
+        <button class="button-3d" onclick="handleGoal()"><div class="button-outer"><div class="button-inner">🥅</div></div></button>
+        <button class="button-3d" onclick="handleBicycle()"><div class="button-outer"><div class="button-inner">🚴🏻‍♀️</div></div></button>
+      </div>
+    </div>
+
+    <div id="slide1" class="slide">
+      <h1> بی نظیرترین دوست ام تولدت مبارک 🎂🥳🥹</h1>
+      <p>پیر شدیم ولی بزرگ نه 😍🥳🎂 بی نهایت خوشحالم که به دنیا اومدی تا بهترین دوستم بشی 🥹
+        این روزا هرکی دکتر نیست، بهش می‌گن “مهندس” ...</p>
+      <img src="photo 3.jpg" style="width: 200px; border-radius: 15px;">
+    </div>
+    
+    <div id="slide2" class="slide">
+      <div class="wrapper">
+        <div class="inner" style="--quantity: 3;">
+          <div class="card" style="--index: 0;"><img src="photo 1.jpg" class="img-box" /></div>
+          <div class="card" style="--index: 1;"><img src="photo 2.jpg" class="img-box" /></div>
+          <div class="card" style="--index: 2;"><img src="photo 4.jpg" class="img-box" /></div>
+        </div>
+      </div>
+      <h1> یادت نره از طرف من به مامان بگو حتما سرتو بکنن توی کیک 🎂🥳🥹</h1>
+      <audio id="bgMusic"><source src="audio.mp3" type="audio/mpeg" /></audio>
+    </div>
+
+    <div id="globalLoader" style="display:none; margin-top: 20px;">
+      <div class="loader">
+        <div class="text"><span>Loading</span></div><div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div><div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div><div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div><div class="text"><span>Loading</span></div>
+        <div class="text"><span>Loading</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const music = document.getElementById('bgMusic');
+    const loader = document.getElementById('globalLoader');
+
+    function resetToHome() {
+      loader.style.display = 'none';
+      slides.forEach(s => s.classList.remove('active'));
+      slides[0].classList.add('active');
+    }
+
+    // 🥅 GOAL BUTTON LOGIC
+    function handleGoal() {
+      slides[0].classList.remove('active');
+      slides[1].classList.add('active');
+      
+      setTimeout(() => {
+        slides[1].appendChild(loader);
+        loader.style.display = 'block';
+        setTimeout(resetToHome, 5000);
+      }, 2000);
+    }
+
+    // 🚴🏻‍♀️ BICYCLE BUTTON LOGIC
+    function handleBicycle() {
+      slides[0].classList.remove('active');
+      slides[2].classList.add('active');
+      
+      music.currentTime = 0;
+      music.play();
+
+      // Detect when the music ends
+      music.onended = function() {
+        // Wait 7 seconds after voice ends
+        setTimeout(() => {
+        slides[2].appendChild(loader);
+        loader.style.display = 'block';
+        // 5 second loader animation
+          setTimeout(resetToHome, 5000);
+        }, 7000);
+      };
+    }
+  </script>
+</body>
+</html>
